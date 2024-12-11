@@ -6,3 +6,5 @@ The two datasets were merged for students who appear in both as identified by se
 I ran a chi-square on two factors that i think might have a relationship (family size and mother's education ).
 
 I ran an ANOVA on weekly alcohol consumption and number of failures to see if they are predictive of G3 grades.
+
+I Performed a linear regression on the G1 math grades and number of absences.
