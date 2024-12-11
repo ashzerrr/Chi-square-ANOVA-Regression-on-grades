@@ -107,3 +107,53 @@ hist(resid_int, main = "Histogram of Residuals", xlab = "Residuals", col = "red"
 # check for homogenity of variance: Levene's test
 leveneTest(G3.x_trans ~ Dalc.x: failures.x, data = merged_data) # residals are approximatelly normal
 
+
+#Simple linear regression
+
+
+math_grades<-read.csv("student_math (1).csv")
+#Check normality
+
+qqnorm(math_grades$G1)
+qqline(math_grades$G1)
+
+qqnorm(math_grades$absences)
+qqline(math_grades$absences)
+
+#transformation
+G1_trans<-transformTukey(math_grades$G1)
+absences_trans<-transformTukey(math_grades$absences)
+
+qqnorm(G1_trans)
+qqline(G1_trans)
+
+qqnorm(absences_trans)
+qqline(absences_trans)
+
+#linear regression
+model <- lm(G1_trans ~ absences_trans, data = math_grades)
+summary(model)
+
+#Checking assumptions:
+
+#Scatter points to check linear relationship
+
+scatter.smooth(absences_trans,G1_trans, main = "g1 grades VS absences")
+
+#normality of residuals
+residuals_model <- residuals(model)
+
+# Q-Q plot of residuals
+qqnorm(residuals_model)
+qqline(residuals_model)
+
+
+#Homoscedasticity
+# Plot residuals vs fitted values
+plot(model$fitted.values, residuals_model, main = "Residuals vs Fitted Values", xlab = "Fitted Values", ylab = "Residuals")
+
+abline(h = 0, col = "black")
+
+
+
+
